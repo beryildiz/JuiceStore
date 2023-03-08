@@ -3,7 +3,7 @@
 namespace app\item\gateway;
 
 use app\item\entity\IItemCatalogue;
-use app\shared\AbstractRepository;
+use app\shared\repository\AbstractRepository;
 
 
 class ItemRepository extends AbstractRepository implements IItemCatalogue

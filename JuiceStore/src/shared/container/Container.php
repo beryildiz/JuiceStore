@@ -1,6 +1,6 @@
 <?php
 
-namespace app\shared;
+namespace app\shared\container;
 
 
 use app\item\control\ItemManager;

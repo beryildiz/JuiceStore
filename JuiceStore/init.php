@@ -1,6 +1,6 @@
 <?php
 
-use app\shared\Container;
+use app\shared\container\Container;
 
 require __DIR__ . "/autoload.php";
 

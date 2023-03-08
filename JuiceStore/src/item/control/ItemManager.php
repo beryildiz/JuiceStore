@@ -3,7 +3,7 @@
 namespace app\item\control;
 
 use app\item\gateway\ItemRepository;
-use app\shared\AbstractController;
+use app\shared\control\AbstractController;
 
 
 class ItemManager extends AbstractController implements IItemManagement

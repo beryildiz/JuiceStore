@@ -1,6 +1,6 @@
 <?php
 
-namespace app\shared;
+namespace app\shared\control;
 
 class AbstractController
 {
