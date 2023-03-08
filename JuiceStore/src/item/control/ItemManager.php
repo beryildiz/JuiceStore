@@ -2,12 +2,13 @@
 
 namespace app\item\control;
 
+use app\item\gateway\ItemRepository;
 use app\shared\AbstractController;
-use ItemRepository;
+
 
 class ItemManager extends AbstractController implements IItemManagement
 {
-    private $itemRepository;
+    protected $itemRepository;
 
     public function __construct(ItemRepository  $itemRepository){
         $this->itemRepository = $itemRepository;
