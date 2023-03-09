@@ -2,17 +2,22 @@
 
 namespace app\item\control;
 
-use app\item\gateway\ItemRepository;
+use app\comment\control\CommentManager;
+use app\comment\control\ICommentManagement;
+use app\comment\entity\ICommentCatalogue;
+use app\item\entity\IItemCatalogue;
 use app\shared\control\AbstractController;
 
 
 class ItemManager extends AbstractController implements IItemManagement
 {
     protected $itemRepository;
+    protected $commentManager;
 
-    public function __construct(ItemRepository $itemRepository)
+    public function __construct(IItemCatalogue $itemRepository, ICommentCatalogue $commentCatalogue)
     {
         $this->itemRepository = $itemRepository;
+        $this->commentManager = $commentCatalogue;
 
     }
 
@@ -31,10 +36,13 @@ class ItemManager extends AbstractController implements IItemManagement
     {
         $id = $_GET['id'];
         $item = $this->itemRepository->findById($id);
+        $comments = $this->commentManager->getAllCommentsById($id);
 
         $this->render("item", "ItemDetailsPage", [
-            "item" => $item
+            "item" => $item,
+            "comments" => $comments
         ]);
+
 
     }
 }

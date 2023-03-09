@@ -3,6 +3,8 @@
 namespace app\shared\container;
 
 
+use app\comment\control\CommentManager;
+use app\comment\gateway\CommentRepository;
 use app\home\control\HomeManagement;
 use app\item\control\ItemManager;
 use app\item\gateway\ItemRepository;
@@ -32,7 +34,7 @@ class Container
         $this->factories = [
             'itemManager' => $this->createItemManager(),
             'pdo' => $this->createPdo(),
-            'homeManager' => $this->createHomeManager()
+            'homeManager' => $this->createHomeManager(),
         ];
 
 
@@ -43,7 +45,8 @@ class Container
     {
         return function () {
             return new ItemManager(
-                new ItemRepository($this->make("pdo"))
+                new ItemRepository($this->make("pdo")),
+                new CommentRepository($this->make("pdo"))
             );
         };
     }
@@ -70,6 +73,15 @@ class Container
     {
         return function () {
             return new HomeManagement();
+        };
+    }
+
+    private function createCommentManager()
+    {
+        return function () {
+            return new CommentManager(
+                new CommentRepository($this->make("pdo"))
+            );
         };
     }
 
