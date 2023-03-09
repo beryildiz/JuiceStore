@@ -4,9 +4,9 @@ namespace app\shared\control;
 
 class AbstractController
 {
-    protected function render($view, $params)
+    protected function render($module, $view, $params)
     {
         extract($params);
-        include __DIR__ . "/../../item/boundary/{$view}.php";
+        include __DIR__ . "/../../{$module}/boundary/{$view}.php";
     }
 }

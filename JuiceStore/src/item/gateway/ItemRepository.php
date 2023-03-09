@@ -10,11 +10,11 @@ class ItemRepository extends AbstractRepository implements IItemCatalogue
 {
     protected function getTableName()
     {
-        // TODO: Implement getTableName() method.
+        return "item";
     }
 
-    protected function getControllerName()
+    protected function getEntityName()
     {
-        // TODO: Implement getControllerName() method.
+        return "app\\item\\entity\\Item";
     }
 }

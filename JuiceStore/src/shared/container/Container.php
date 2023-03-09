@@ -24,9 +24,9 @@ class Container
 
     private function createItemManager()
     {
-        return function (PDO $pdo) {
+        return function () {
             return new ItemManager(
-                new ItemRepository($pdo)
+                new ItemRepository($this->make("pdo"))
             );
         };
     }
@@ -50,18 +50,19 @@ class Container
     }
 
 
-    public function get($name)
+    public function make($name)
     {
         if (!empty($this->instances[$name])) {
             return $this->instances[$name];
         }
 
-        if (isset($this->receipts[$name])) {
-            $this->instances[$name] = $this->receipts[$name]($this->get('pdo'));
+        if (isset($this->factories[$name])) {
+            $this->instances[$name] = $this->factories[$name]();
         }
 
         return $this->instances[$name];
     }
 
 }
+
 
