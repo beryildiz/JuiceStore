@@ -1,5 +1,3 @@
-
-
 <form method="post" action="item?id=<?php echo $item->id; ?>">
     <label>
 <textarea name="content" class="form-control">

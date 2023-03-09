@@ -1,36 +1,16 @@
 <?php
+
+use app\shared\router\Router;
+
 require __DIR__ . "/../init.php";
 $pathInfo = $_SERVER["PATH_INFO"];
 
+$router = new Router($container);
 
-/**
- * Routes Array for using new routes
- * With given key return a value that hold value:
- * "controller" : which controller should be created
- * "method": which method should be invoked
- */
-$routes = [
-    "/items" => [
-        "controller" => "itemManager",
-        "method" => "index"
-    ],
-    "/item" => [
-        "controller" => "itemManager",
-        "method" => "show"
-    ],
-    "/home" => [
-        "controller" => "homeManager",
-        "method" => "index"
-    ]
-];
+// add routes
+$router->addRoute("/items", "itemManager", "index");
+$router->addRoute("/item", "itemManager", "show");
+$router->addRoute("/home", "homeManager", "index");
 
-/**
- * Extract Key value pairs and build a valid URI
- */
-if (isset($routes[$pathInfo])) {
-    $route = $routes[$pathInfo];
-    $controller = $container->make($route["controller"]);
-    $method = $route["method"];
-    $controller->$method();
-}
-
+// dispatch request
+$router->dispatch($pathInfo);

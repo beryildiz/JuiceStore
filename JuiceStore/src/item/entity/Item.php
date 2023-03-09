@@ -9,5 +9,6 @@ class Item
 {
     public $id;
     public $description;
+    public $name;
     public $price;
 }

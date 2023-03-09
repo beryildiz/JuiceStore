@@ -35,7 +35,8 @@ class Container
             'itemManager' => $this->createItemManager(),
             'pdo' => $this->createPdo(),
             'homeManager' => $this->createHomeManager(),
-            'commentManager' => $this->createCommentManager()
+            'commentManager' => $this->createCommentManager(),
+            'container' => $this->createContainer()
         ];
     }
 
@@ -84,6 +85,12 @@ class Container
         };
     }
 
+    private function createContainer()
+    {
+        return function () {
+            return new Container();
+        };
+    }
 
     /**
      * creates an instance of the class that is subscribed in the factories array
@@ -108,6 +115,7 @@ class Container
 
         return $this->instances[$name];
     }
+
 
 }
 
