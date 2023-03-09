@@ -3,24 +3,41 @@
 namespace app\shared\container;
 
 
+use app\home\control\HomeManagement;
 use app\item\control\ItemManager;
 use app\item\gateway\ItemRepository;
+
 use PDO;
 use PDOException;
 
-
+/**
+ * Dependency injection container class
+ *
+ * Injects needed instances of classes if needed.
+ *
+ */
 class Container
 {
     protected $factories = [];
     private $instances = [];
 
+
+    /*
+     * subscribe new factories to factories array and assign
+     * an anonymous function that creates the needed instance of a class
+     */
     public function __construct()
     {
+        // add new factories here...
         $this->factories = [
             'itemManager' => $this->createItemManager(),
             'pdo' => $this->createPdo(),
+            'homeManager' => $this->createHomeManager()
         ];
+
+
     }
+
 
     private function createItemManager()
     {
@@ -49,7 +66,25 @@ class Container
         };
     }
 
+    private function createHomeManager()
+    {
+        return function () {
+            return new HomeManagement();
+        };
+    }
 
+
+    /**
+     * creates an instance of the class that is subscribed in the factories array
+     *
+     * @param $name - key of the factories array
+     * @return mixed - instance of the class
+     *
+     * Usage:
+     * return new ItemManager(
+     * new ItemRepository($this->make("pdo"))
+     *);
+     */
     public function make($name)
     {
         if (!empty($this->instances[$name])) {

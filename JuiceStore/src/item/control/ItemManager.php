@@ -22,11 +22,9 @@ class ItemManager extends AbstractController implements IItemManagement
         $items = $this->itemRepository->getAll();
 
         // render content here
-        $this->render("item", "ItemView", [
+        $this->render("item", "ItemPage", [
             "items" => $items
         ]);
-
-
     }
 
     public function show()
@@ -34,10 +32,9 @@ class ItemManager extends AbstractController implements IItemManagement
         $id = $_GET['id'];
         $item = $this->itemRepository->findById($id);
 
-        $this->render("item", "ItemDetails", [
+        $this->render("item", "ItemDetailsPage", [
             "item" => $item
         ]);
-
 
     }
 }
