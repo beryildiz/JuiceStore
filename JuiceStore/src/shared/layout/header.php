@@ -30,4 +30,4 @@
 <body>
 
 <div class="parent container d-flex justify-content-center align-items-center h-100">
-    <div class="container w-25">
+
