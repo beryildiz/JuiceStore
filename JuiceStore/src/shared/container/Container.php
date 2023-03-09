@@ -37,8 +37,6 @@ class Container
             'homeManager' => $this->createHomeManager(),
             'commentManager' => $this->createCommentManager()
         ];
-
-
     }
 
 
@@ -47,7 +45,7 @@ class Container
         return function () {
             return new ItemManager(
                 new ItemRepository($this->make("pdo")),
-                new CommentRepository($this->make("pdo"))
+                new CommentManager(new CommentRepository($this->make("pdo")))
             );
         };
     }

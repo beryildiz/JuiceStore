@@ -15,7 +15,6 @@
         <br>
 
         <div class="row">
-
             <?php include_once __DIR__ . "/../../comment/boundary/CommentPage.php" ?>
         </div>
 

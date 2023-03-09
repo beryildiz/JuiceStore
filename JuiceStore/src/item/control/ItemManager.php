@@ -2,7 +2,8 @@
 
 namespace app\item\control;
 
-use app\comment\entity\ICommentCatalogue;
+
+use app\comment\control\ICommentManagement;
 use app\item\entity\IItemCatalogue;
 use app\shared\control\AbstractController;
 
@@ -10,12 +11,12 @@ use app\shared\control\AbstractController;
 class ItemManager extends AbstractController implements IItemManagement
 {
     private $itemRepository;
-    private $commentRepository;
+    private $commentManagement;
 
-    public function __construct(IItemCatalogue $itemRepository, ICommentCatalogue $commentRepository)
+    public function __construct(IItemCatalogue $itemRepository, ICommentManagement $commentManagement)
     {
         $this->itemRepository = $itemRepository;
-        $this->commentRepository = $commentRepository;
+        $this->commentManagement = $commentManagement;
     }
 
     public function index()
@@ -33,14 +34,8 @@ class ItemManager extends AbstractController implements IItemManagement
     {
         $id = $_GET['id'];
 
-        if (isset($_POST['content'])) {
-            $content = sanitize($_POST['content']);
-
-            $this->commentRepository->createComment($id, $content);
-        }
-
         $item = $this->itemRepository->findById($id);
-        $comments = $this->commentRepository->getAllCommentsById($id);
+        $comments = $this->commentManagement->getAllCommentsById($id);
 
         $this->render("item", "ItemDetailsPage", [
             "item" => $item,
