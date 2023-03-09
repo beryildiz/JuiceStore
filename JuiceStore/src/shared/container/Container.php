@@ -35,6 +35,7 @@ class Container
             'itemManager' => $this->createItemManager(),
             'pdo' => $this->createPdo(),
             'homeManager' => $this->createHomeManager(),
+            'commentManager' => $this->createCommentManager()
         ];
 
 
