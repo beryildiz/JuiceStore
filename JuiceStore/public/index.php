@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use app\shared\router\Router;
 
@@ -11,6 +12,10 @@ $router = new Router($container);
 $router->addRoute("/items", "itemManager", "index");
 $router->addRoute("/item", "itemManager", "show");
 $router->addRoute("/home", "homeManager", "index");
+$router->addRoute("/login", "loginManager", "login");
+$router->addRoute("/logout", "loginManager", "logout");
+$router->addRoute("/register", "loginManager", "register");
+
 
 // dispatch request
 $router->dispatch($pathInfo);

@@ -37,6 +37,7 @@ class ItemManager extends AbstractController implements IItemManagement
         $item = $this->itemRepository->findById($id);
         $comments = $this->commentManagement->getAllCommentsById($id);
 
+
         $this->render("item", "ItemDetailsPage", [
             "item" => $item,
             "comments" => $comments

@@ -23,7 +23,12 @@ class CommentRepository extends AbstractRepository implements ICommentCatalogue
     {
         $table = $this->getTableName();
         $model = $this->getEntityName();
-        $statement = $this->pdo->prepare("SELECT * FROM `$table` WHERE item_id = ?");
+
+        // SELECT * FROM COMMENT Inner JOIN USER on COMMENT.user_id = USER.id;
+        // $statement = $this->pdo->prepare("SELECT * FROM `$table` WHERE item_id = ?");
+
+        $sql = "SELECT * FROM {$table} Inner JOIN USER on COMMENT.user_id = USER.id where item_id = ?";
+        $statement = $this->pdo->prepare($sql);
         $statement->execute([$id]);
         return $statement->fetchAll(PDO::FETCH_CLASS, $model);
     }
@@ -31,7 +36,7 @@ class CommentRepository extends AbstractRepository implements ICommentCatalogue
     public function createComment($id, $content)
     {
         $table = $this->getTableName();
-        $statement = $this->pdo->prepare("Insert into `$table`(`content`, `item_id`) values (?, ?)");
+        $statement = $this->pdo->prepare("Insert into `$table`(`content`, `item_id`, `user_id`) values (?, ?)");
         $statement->execute([$content, $id]);
     }
 }

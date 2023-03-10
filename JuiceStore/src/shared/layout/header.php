@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +13,19 @@
 
 <div class="parent container d-flex justify-content-center align-items-center h-100">
     <div class="container w-50">
+
+        <?php
+        if (!isset($_COOKIE["count"])) {
+            setcookie("count", 1);
+            echo " You have visited  this website for the first time";
+        } else {
+            $visitCount = $_COOKIE["count"] + 1;
+            setcookie("count", $visitCount);
+            echo "You have visited this website {$visitCount} times";
+        }
+        ?>
+
+
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="items"
                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">

@@ -9,8 +9,14 @@ use app\home\control\HomeManagement;
 use app\item\control\ItemManager;
 use app\item\gateway\ItemRepository;
 
+
+use app\user\control\LoginManager;
+use app\user\control\LoginService;
+use app\user\gateway\UserRepository;
 use PDO;
 use PDOException;
+
+// ToDo: find better way to handle instances. This god class is to mighty to handle
 
 /**
  * Dependency injection container class
@@ -36,7 +42,9 @@ class Container
             'pdo' => $this->createPdo(),
             'homeManager' => $this->createHomeManager(),
             'commentManager' => $this->createCommentManager(),
-            'container' => $this->createContainer()
+            'container' => $this->createContainer(),
+            'loginManager' => $this->createLoginManager(),
+            'loginService' => $this->loginService()
         ];
     }
 
@@ -91,6 +99,21 @@ class Container
             return new Container();
         };
     }
+
+    private function createLoginManager()
+    {
+        return function () {
+            return new LoginManager($this->make("loginService"));
+        };
+    }
+
+    private function loginService()
+    {
+        return function () {
+            return new LoginService(new UserRepository($this->make("pdo")));
+        };
+    }
+
 
     /**
      * creates an instance of the class that is subscribed in the factories array

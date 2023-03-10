@@ -3,7 +3,7 @@
 
 <div class="container">
     <div class="d-grid gap-3">
-        <h1 class="text-center">Hello Juice Store</h1>
+        <h1 class="text-center">Welcome <?php echo sanitize($_COOKIE["username"]) ?></h1>
         <div class="container w-50">
 
             <div class="list-group">
